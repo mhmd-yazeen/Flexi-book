@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kottayam Medicity — Booking Desk 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon"><i class="fas fa-cross"></i></div>
+            <div class="brand-text">
+                <span class="brand-main">Kottayam</span>
+                <span class="brand-sub">MEDICITY</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <nav class="sidebar-nav">
+            <button class="nav-btn active" data-page="dashboard" onclick="navTo('dashboard',this)">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span class="nav-label">Dashboard</span>
+                <span class="nav-pip"></span>
+            </button>
+            <button class="nav-btn" data-page="appointments" onclick="navTo('appointments',this)">
+                <span class="nav-icon"><i class="fas fa-calendar-alt"></i></span>
+                <span class="nav-label">OPD Bookings</span>
+                <span class="nav-badge" id="nav-badge">0</span>
+            </button>
+            <button class="nav-btn" data-page="doctors" onclick="navTo('doctors',this)">
+                <span class="nav-icon"><i class="fas fa-user-md"></i></span>
+                <span class="nav-label">Medical Staff</span>
+                <span class="nav-pip"></span>
+            </button>
+        </nav>
+
+        <div class="sidebar-section-label">RECORDS</div>
+        <nav class="sidebar-nav">
+            <button class="nav-btn" data-page="patients" onclick="navTo('patients',this)">
+                <span class="nav-icon"><i class="fas fa-procedures"></i></span>
+                <span class="nav-label">Patient Records</span>
+                <span class="nav-pip"></span>
+            </button>
+            <button class="nav-btn" data-page="calendar" onclick="navTo('calendar',this)">
+                <span class="nav-icon"><i class="fas fa-calendar-week"></i></span>
+                <span class="nav-label">Calendar View</span>
+                <span class="nav-pip"></span>
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-profile">
+                <div class="profile-avatar">
+                    <span>FD</span>
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name">Front Desk</span>
+                    <span class="profile-status" id="connection-status"><span class="status-dot"></span> Active</span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme"><i class="fas fa-circle-half-stroke"></i></button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="topbar-title" id="page-title">Dashboard</div>
+            </div>
+            <div class="topbar-center">
+                <div class="clock-display">
+                    <i class="far fa-clock"></i>
+                    <span id="current-date">Loading...</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <button class="tv-btn" onclick="toggleTVMode()">
+                    <i class="fas fa-tv"></i> TV Mode
+                </button>
+                <button class="new-appt-btn" onclick="openModal('booking-modal')">
+                    <i class="fas fa-plus"></i> New Appointment
+                </button>
+            </div>
+        </header>
+
+        <main class="content-area" id="content-area">
+
+            <!-- ==================== DASHBOARD ==================== -->
+            <section id="dashboard" class="page active">
+                <!-- KPI Strip -->
+                <div class="kpi-strip">
+                    <div class="kpi-card" data-color="blue">
+                        <div class="kpi-body">
+                            <span class="kpi-label">Total Today</span>
+                            <span class="kpi-value" id="kpi-total">0</span>
+                        </div>
+                        <div class="kpi-icon"><i class="fas fa-calendar-check"></i></div>
+                    </div>
+                    <div class="kpi-card" data-color="amber">
+                        <div class="kpi-body">
+                            <span class="kpi-label">Waiting</span>
+                            <span class="kpi-value" id="kpi-pending">0</span>
+                        </div>
+                        <div class="kpi-icon"><i class="fas fa-hourglass-half"></i></div>
+                    </div>
+                    <div class="kpi-card" data-color="green">
+                        <div class="kpi-body">
+                            <span class="kpi-label">Completed</span>
+                            <span class="kpi-value" id="kpi-completed">0</span>
+                        </div>
+                        <div class="kpi-icon"><i class="fas fa-check-double"></i></div>
+                    </div>
+                    <div class="kpi-card" data-color="red">
+                        <div class="kpi-body">
+                            <span class="kpi-label">Emergency</span>
+                            <span class="kpi-value" id="kpi-emergency">0</span>
+                        </div>
+                        <div class="kpi-icon"><i class="fas fa-heartbeat"></i></div>
+                    </div>
+                    <div class="kpi-card" data-color="purple">
+                        <div class="kpi-body">
+                            <span class="kpi-label">Called</span>
+                            <span class="kpi-value" id="kpi-called">0</span>
+                        </div>
+                        <div class="kpi-icon"><i class="fas fa-bullhorn"></i></div>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <!-- Live Queue -->
+                    <div class="panel queue-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-stream"></i> Live Patient Queue</h3>
+                            <div class="legend-row">
+                                <span class="leg-dot waiting"></span><span>Waiting</span>
+                                <span class="leg-dot called"></span><span>Called</span>
+                                <span class="leg-dot completed"></span><span>Done</span>
+                            </div>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Token</th>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-feed"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="panel actions-panel">
+                        <div class="panel-header"><h3><i class="fas fa-bolt"></i> Quick Actions</h3></div>
+                        <div class="action-tiles">
+                            <button class="action-tile" onclick="printDayList()">
+                                <i class="fas fa-print"></i>
+                                <span>Print List</span>
+                            </button>
+                            <button class="action-tile" onclick="announceNext()">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Call Next</span>
+                            </button>
+                            <button class="action-tile danger" onclick="emergencyAlert()">
+                                <i class="fas fa-ambulance"></i>
+                                <span>Code Blue</span>
+                            </button>
+                            <button class="action-tile" onclick="exportCSV()">
+                                <i class="fas fa-file-csv"></i>
+                                <span>Export CSV</span>
+                            </button>
+                            <button class="action-tile" onclick="openModal('booking-modal')">
+                                <i class="fas fa-user-plus"></i>
+                                <span>New Booking</span>
+                            </button>
+                            <button class="action-tile" onclick="navTo('doctors', document.querySelector('[data-page=doctors]'))">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>Staff Roster</span>
+                            </button>
+                        </div>
+
+                        <!-- Today mini-chart -->
+                        <div class="mini-stat-box">
+                            <div class="mini-stat">
+                                <span class="mini-label">On Duty Now</span>
+                                <span class="mini-value" id="kpi-onduty">0 Doctors</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-label">Dept with Most Bookings</span>
+                                <span class="mini-value" id="kpi-top-dept">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== APPOINTMENTS ==================== -->
+            <section id="appointments" class="page">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <select id="filter-dept" onchange="filterAppts()" class="form-select">
+                            <option value="all">All Departments</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="General">General Medicine</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="ENT">ENT</option>
+                        </select>
+                        <select id="filter-status" onchange="filterAppts()" class="form-select">
+                            <option value="all">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Called">Called</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                        <input type="date" id="filter-date" onchange="filterAppts()" class="form-input">
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-wrap">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-bar" placeholder="Search patient, doctor..." onkeyup="filterAppts()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <table class="data-table full" id="main-appt-table">
+                        <thead>
+                            <tr>
+                                <th>#Token</th>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==================== DOCTORS ==================== -->
+            <section id="doctors" class="page">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <button class="chip-btn active" onclick="filterDoctors('all',this)">All Staff</button>
+                        <button class="chip-btn" onclick="filterDoctors('On Duty',this)">On Duty</button>
+                        <button class="chip-btn" onclick="filterDoctors('Off Duty',this)">Off Duty</button>
+                        <button class="chip-btn" onclick="filterDoctors('In Surgery',this)">In Surgery</button>
+                    </div>
+                    <div class="toolbar-right">
+                        <button class="new-appt-btn" onclick="openModal('add-doctor-modal')"><i class="fas fa-plus"></i> Add Staff</button>
+                    </div>
+                </div>
+                <div class="doctor-grid" id="doctor-list"></div>
+            </section>
+
+            <!-- ==================== PATIENTS ==================== -->
+            <section id="patients" class="page">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <div class="search-wrap">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="patient-search" placeholder="Search patient name or phone..." onkeyup="filterPatients()">
+                        </div>
+                    </div>
+                    <div class="toolbar-right">
+                        <button class="new-appt-btn" onclick="openModal('booking-modal')"><i class="fas fa-plus"></i> New Booking</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <table class="data-table full" id="patient-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Patient</th>
+                                <th>Phone</th>
+                                <th>Age/Gender</th>
+                                <th>Blood Group</th>
+                                <th>Last Visit</th>
+                                <th>History</th>
+                                <th>Total Visits</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==================== FULL CALENDAR ==================== -->
+            <section id="calendar" class="page">
+                <div class="cal-layout">
+                    <div class="cal-sidebar-panel">
+                        <div class="cal-today-card">
+                            <div class="cal-today-date" id="cal-today-date">Feb 2026</div>
+                            <div class="cal-today-stats">
+                                <div class="cal-stat"><span id="cal-day-total">0</span><small>Today</small></div>
+                                <div class="cal-stat"><span id="cal-month-total">0</span><small>This Month</small></div>
+                            </div>
+                        </div>
+                        <div class="upcoming-list">
+                            <h4>Upcoming Appointments</h4>
+                            <div id="upcoming-list-body"></div>
+                        </div>
+                    </div>
+                    <div class="panel cal-main-panel">
+                        <div class="calendar-header">
+                            <button class="cal-nav-btn" onclick="changeCalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <h3 id="cal-title">Month Year</h3>
+                            <button class="cal-nav-btn" onclick="changeCalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="cal-days-row">
+                            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                        </div>
+                        <div class="cal-grid" id="calendar-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Day Detail Modal (inline) -->
+                <div id="day-detail-panel" class="day-detail-panel" style="display:none;">
+                    <div class="day-detail-header">
+                        <h3 id="day-detail-title">Appointments on ...</h3>
+                        <button onclick="document.getElementById('day-detail-panel').style.display='none'" class="close-btn-sm"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div id="day-detail-body"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- ==================== TV MODE ==================== -->
+<div id="tv-overlay" class="tv-overlay">
+    <button class="tv-close-btn" onclick="toggleTVMode()"><i class="fas fa-times"></i> Exit TV Mode</button>
+    <div class="tv-content">
+        <div class="tv-now-label">NOW CALLING</div>
+        <div class="tv-token" id="tv-token">—</div>
+        <div class="tv-patient-name" id="tv-patient">Please Wait</div>
+        <div class="tv-room-tag" id="tv-doctor">Waiting for next patient</div>
+        <div class="tv-queue-strip">
+            <span class="tv-queue-label">QUEUE:</span>
+            <div class="tv-queue-list" id="tv-next-list"></div>
+        </div>
+        <div class="tv-time" id="tv-clock"></div>
+    </div>
+</div>
+
+<!-- ==================== MODAL: NEW BOOKING ==================== -->
+<div id="booking-modal" class="modal-backdrop" onclick="closeOnBackdrop(event,'booking-modal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2><i class="fas fa-calendar-plus"></i> New Appointment</h2>
+            <button class="modal-close" onclick="closeModal('booking-modal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Patient Name <span class="req">*</span></label>
+                    <input type="text" id="nb-name" placeholder="Full name" list="patient-suggestions">
+                    <datalist id="patient-suggestions"></datalist>
+                </div>
+                <div class="form-group">
+                    <label>Phone <span class="req">*</span></label>
+                    <input type="tel" id="nb-phone" placeholder="Mobile number">
+                </div>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="nb-age" placeholder="Age" min="0" max="120">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="nb-gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Doctor / Department <span class="req">*</span></label>
+                <select id="nb-doc"></select>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Date <span class="req">*</span></label>
+                    <input type="date" id="nb-date">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time" id="nb-time">
+                </div>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="nb-prio">
+                        <option value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Complaint / Reason</label>
+                    <input type="text" id="nb-complaint" placeholder="Chief complaint">
+                </div>
+            </div>
+            <button class="submit-btn" onclick="createBooking()"><i class="fas fa-check"></i> Confirm Booking</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MODAL: PATIENT DETAIL ==================== -->
+<div id="patient-modal" class="modal-backdrop" onclick="closeOnBackdrop(event,'patient-modal')">
+    <div class="modal-box modal-wide" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2><i class="fas fa-user"></i> Patient Details</h2>
+            <button class="modal-close" onclick="closeModal('patient-modal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="patient-modal-body"></div>
+    </div>
+</div>
+
+<!-- ==================== MODAL: ADD DOCTOR ==================== -->
+<div id="add-doctor-modal" class="modal-backdrop" onclick="closeOnBackdrop(event,'add-doctor-modal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2><i class="fas fa-user-md"></i> Add Medical Staff</h2>
+            <button class="modal-close" onclick="closeModal('add-doctor-modal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Full Name <span class="req">*</span></label>
+                    <input type="text" id="nd-name" placeholder="Dr. Name">
+                </div>
+                <div class="form-group">
+                    <label>Department <span class="req">*</span></label>
+                    <select id="nd-dept">
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="General">General Medicine</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="ENT">ENT</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <input type="text" id="nd-spec" placeholder="e.g. Interventional Cardiologist">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="nd-phone" placeholder="Contact number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="nd-status">
+                    <option value="On Duty">On Duty</option>
+                    <option value="Off Duty">Off Duty</option>
+                    <option value="In Surgery">In Surgery</option>
+                </select>
+            </div>
+            <button class="submit-btn" onclick="addDoctor()"><i class="fas fa-plus"></i> Add Staff Member</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MODAL: EDIT BOOKING ==================== -->
+<div id="edit-modal" class="modal-backdrop" onclick="closeOnBackdrop(event,'edit-modal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2><i class="fas fa-edit"></i> Edit Appointment</h2>
+            <button class="modal-close" onclick="closeModal('edit-modal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="edit-modal-body"></div>
+    </div>
+</div>
+
+<div id="toast-container"></div>
+
+<!-- Firebase SDKs (compat — exposes global `firebase` object) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+<!-- Application Logic -->
+<script src="script.js"></script>
+</body>
+</html>

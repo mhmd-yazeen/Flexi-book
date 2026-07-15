@@ -1,0 +1,606 @@
+{
+  "_meta": {
+    "description": "Kottayam Medicity — Central Data Store",
+    "version": "2026.1",
+    "note": "Edit this file to change any data shown on the website. All sections are consumed by script.js at runtime via fetch().",
+    "sections": ["hospital", "departments", "doctors", "patients", "bookings", "notices", "stats"]
+  },
+
+  "hospital": {
+    "name":           "Kottayam Medicity",
+    "shortName":      "KMed",
+    "tagline":        "Caring for Kottayam since 1998",
+    "address":        "MC Road, Kottayam, Kerala — 686001",
+    "phone":          "0481-2301234",
+    "emergencyLine":  "0481-2309999",
+    "email":          "info@kottayammedicity.in",
+    "website":        "www.kottayammedicity.in",
+    "beds":           350,
+    "founded":        1998,
+    "accreditation":  "NABH Accredited",
+    "tagColor":       "#2563eb"
+  },
+
+  "departments": [
+    { "id": "DEPT01", "name": "Cardiology",        "shortName": "Cardio",  "icon": "fas fa-heart",        "color": "#ef4444", "room": "Block A, Floor 1", "head": "Dr. Kurian Thomas"   },
+    { "id": "DEPT02", "name": "General Medicine",  "shortName": "General", "icon": "fas fa-stethoscope",  "color": "#2563eb", "room": "Block C, Floor 3", "head": "Dr. Priya Rajan"     },
+    { "id": "DEPT03", "name": "Pediatrics",        "shortName": "Paeds",   "icon": "fas fa-baby",         "color": "#f59e0b", "room": "Block B, Floor 2", "head": "Dr. Anjali Nair"     },
+    { "id": "DEPT04", "name": "Orthopedics",       "shortName": "Ortho",   "icon": "fas fa-bone",         "color": "#8b5cf6", "room": "Block A, Floor 1", "head": "Dr. Mathew Varghese" },
+    { "id": "DEPT05", "name": "Neurology",         "shortName": "Neuro",   "icon": "fas fa-brain",        "color": "#0891b2", "room": "Block B, Floor 2", "head": "Dr. Saji Abraham"    },
+    { "id": "DEPT06", "name": "ENT",               "shortName": "ENT",     "icon": "fas fa-ear-listen",   "color": "#059669", "room": "Block A, Floor 1", "head": "Dr. Deepa Menon"     },
+    { "id": "DEPT07", "name": "Dermatology",       "shortName": "Derma",   "icon": "fas fa-hand-dots",    "color": "#d97706", "room": "Block C, Floor 3", "head": "Dr. Nisha George"    },
+    { "id": "DEPT08", "name": "Ophthalmology",     "shortName": "Eye",     "icon": "fas fa-eye",          "color": "#6366f1", "room": "Block A, Floor 1", "head": "Dr. Biju Philip"     }
+  ],
+
+  "doctors": [
+    {
+      "id":            "D001",
+      "name":          "Dr. Kurian Thomas",
+      "deptId":        "DEPT01",
+      "dept":          "Cardiology",
+      "spec":          "Interventional Cardiologist",
+      "qualification": "MBBS, MD (Cardiology), DM (Interventional)",
+      "phone":         "9846011001",
+      "email":         "kurian.t@kmed.in",
+      "status":        "On Duty",
+      "opDays":        ["Mon","Tue","Wed","Thu","Fri"],
+      "opHours":       "09:00 – 13:00",
+      "chamber":       "Room 101, OPD Block A",
+      "consultFee":    500,
+      "patients":      1284,
+      "experience":    14
+    },
+    {
+      "id":            "D002",
+      "name":          "Dr. Anjali Nair",
+      "deptId":        "DEPT03",
+      "dept":          "Pediatrics",
+      "spec":          "Neonatologist",
+      "qualification": "MBBS, MD (Pediatrics), Fellowship (Neonatology)",
+      "phone":         "9447022002",
+      "email":         "anjali.n@kmed.in",
+      "status":        "In Surgery",
+      "opDays":        ["Mon","Wed","Fri","Sat"],
+      "opHours":       "10:00 – 14:00",
+      "chamber":       "Room 202, OPD Block B",
+      "consultFee":    400,
+      "patients":      2190,
+      "experience":    9
+    },
+    {
+      "id":            "D003",
+      "name":          "Dr. Mathew Varghese",
+      "deptId":        "DEPT04",
+      "dept":          "Orthopedics",
+      "spec":          "Joint Replacement Surgeon",
+      "qualification": "MBBS, MS (Ortho), MCh (Joint Replacement)",
+      "phone":         "9961033003",
+      "email":         "mathew.v@kmed.in",
+      "status":        "On Duty",
+      "opDays":        ["Tue","Thu","Fri","Sat"],
+      "opHours":       "09:00 – 12:00",
+      "chamber":       "Room 105, OPD Block A",
+      "consultFee":    600,
+      "patients":      876,
+      "experience":    20
+    },
+    {
+      "id":            "D004",
+      "name":          "Dr. Priya Rajan",
+      "deptId":        "DEPT02",
+      "dept":          "General Medicine",
+      "spec":          "Internal Medicine & Diabetologist",
+      "qualification": "MBBS, MD (Internal Medicine)",
+      "phone":         "9895044004",
+      "email":         "priya.r@kmed.in",
+      "status":        "Off Duty",
+      "opDays":        ["Mon","Tue","Wed","Thu"],
+      "opHours":       "08:00 – 12:00",
+      "chamber":       "Room 301, OPD Block C",
+      "consultFee":    350,
+      "patients":      3210,
+      "experience":    7
+    },
+    {
+      "id":            "D005",
+      "name":          "Dr. Saji Abraham",
+      "deptId":        "DEPT05",
+      "dept":          "Neurology",
+      "spec":          "Stroke & Epilepsy Specialist",
+      "qualification": "MBBS, MD (Medicine), DM (Neurology)",
+      "phone":         "9946055005",
+      "email":         "saji.a@kmed.in",
+      "status":        "On Duty",
+      "opDays":        ["Mon","Wed","Thu","Fri"],
+      "opHours":       "10:00 – 13:00",
+      "chamber":       "Room 204, OPD Block B",
+      "consultFee":    550,
+      "patients":      654,
+      "experience":    12
+    },
+    {
+      "id":            "D006",
+      "name":          "Dr. Deepa Menon",
+      "deptId":        "DEPT06",
+      "dept":          "ENT",
+      "spec":          "Otolaryngologist & Head-Neck Surgeon",
+      "qualification": "MBBS, MS (ENT)",
+      "phone":         "8086066006",
+      "email":         "deepa.m@kmed.in",
+      "status":        "On Duty",
+      "opDays":        ["Mon","Tue","Thu","Sat"],
+      "opHours":       "09:30 – 13:30",
+      "chamber":       "Room 108, OPD Block A",
+      "consultFee":    400,
+      "patients":      987,
+      "experience":    11
+    },
+    {
+      "id":            "D007",
+      "name":          "Dr. Nisha George",
+      "deptId":        "DEPT07",
+      "dept":          "Dermatology",
+      "spec":          "Cosmetic & Clinical Dermatologist",
+      "qualification": "MBBS, MD (Dermatology)",
+      "phone":         "9400077007",
+      "email":         "nisha.g@kmed.in",
+      "status":        "On Duty",
+      "opDays":        ["Tue","Wed","Fri","Sat"],
+      "opHours":       "10:00 – 14:00",
+      "chamber":       "Room 305, OPD Block C",
+      "consultFee":    450,
+      "patients":      1543,
+      "experience":    8
+    },
+    {
+      "id":            "D008",
+      "name":          "Dr. Biju Philip",
+      "deptId":        "DEPT08",
+      "dept":          "Ophthalmology",
+      "spec":          "Retina & Cataract Surgeon",
+      "qualification": "MBBS, MS (Ophthalmology), Fellowship (Vitreoretinal)",
+      "phone":         "9961088008",
+      "email":         "biju.p@kmed.in",
+      "status":        "Off Duty",
+      "opDays":        ["Mon","Wed","Fri"],
+      "opHours":       "08:30 – 12:30",
+      "chamber":       "Room 110, OPD Block A",
+      "consultFee":    500,
+      "patients":      762,
+      "experience":    16
+    }
+  ],
+
+  "patients": [
+    {
+      "id":               "P0001",
+      "name":             "Ouseph Chacko",
+      "phone":            "9846012345",
+      "age":              58,
+      "gender":           "Male",
+      "blood":            "A+",
+      "dob":              "1966-04-12",
+      "address":          "Puthuppally, Kottayam",
+      "email":            "ouseph.c@gmail.com",
+      "emergencyContact": "Mary Chacko — 9846054321",
+      "lastVisit":        "TODAY",
+      "history":          "Hypertension, Diabetes Type 2, Hyperlipidaemia",
+      "allergies":        "Penicillin",
+      "insurance":        "Star Health — POL2345678"
+    },
+    {
+      "id":               "P0002",
+      "name":             "Lakshmi Menon",
+      "phone":            "9447098765",
+      "age":              34,
+      "gender":           "Female",
+      "blood":            "O+",
+      "dob":              "1991-07-23",
+      "address":          "Changanacherry, Kottayam",
+      "email":            "lakshmi.m@yahoo.com",
+      "emergencyContact": "Rajan Menon — 9447011223",
+      "lastVisit":        "MINUS_135",
+      "history":          "Asthma, Allergic Rhinitis, GERD",
+      "allergies":        "Aspirin, Dust",
+      "insurance":        "LIC Health — POL9988776"
+    },
+    {
+      "id":               "P0003",
+      "name":             "Akhil Suresh",
+      "phone":            "8086123456",
+      "age":              22,
+      "gender":           "Male",
+      "blood":            "B+",
+      "dob":              "2003-01-15",
+      "address":          "Ettumanoor, Kottayam",
+      "email":            "",
+      "emergencyContact": "Suresh Kumar — 8086654321",
+      "lastVisit":        "TODAY",
+      "history":          "Viral Fever, Dengue (2024), Tonsillitis",
+      "allergies":        "None",
+      "insurance":        "None"
+    },
+    {
+      "id":               "P0004",
+      "name":             "Marykutty George",
+      "phone":            "9946000011",
+      "age":              65,
+      "gender":           "Female",
+      "blood":            "AB-",
+      "dob":              "1959-11-03",
+      "address":          "Vaikom, Kottayam",
+      "email":            "",
+      "emergencyContact": "George Thomas — 9946001122",
+      "lastVisit":        "TODAY",
+      "history":          "Hip Fracture (2025), Osteoporosis, Hypertension, Type 2 DM",
+      "allergies":        "Sulfonamides",
+      "insurance":        "Oriental Insurance — POL3344556"
+    },
+    {
+      "id":               "P0005",
+      "name":             "Rajan Pillai",
+      "phone":            "9400234567",
+      "age":              45,
+      "gender":           "Male",
+      "blood":            "O-",
+      "dob":              "1979-09-28",
+      "address":          "Erattupetta, Kottayam",
+      "email":            "rajan.p@hotmail.com",
+      "emergencyContact": "Suma Rajan — 9400765432",
+      "lastVisit":        "MINUS_83",
+      "history":          "Lower Back Pain, L4-L5 Disc Prolapse, Hypertension",
+      "allergies":        "NSAID (Diclofenac)",
+      "insurance":        "New India Assurance — POL7788990"
+    },
+    {
+      "id":               "P0006",
+      "name":             "Smitha Thomas",
+      "phone":            "9895678901",
+      "age":              29,
+      "gender":           "Female",
+      "blood":            "A-",
+      "dob":              "1995-03-07",
+      "address":          "Kanjirappally, Kottayam",
+      "email":            "smitha.t@gmail.com",
+      "emergencyContact": "Thomas Mathew — 9895112233",
+      "lastVisit":        "MINUS_68",
+      "history":          "Migraine, Anxiety Disorder, Iron Deficiency Anaemia",
+      "allergies":        "None",
+      "insurance":        "Max Bupa — POL5566778"
+    },
+    {
+      "id":               "P0007",
+      "name":             "Jose Varkey",
+      "phone":            "9846099001",
+      "age":              50,
+      "gender":           "Male",
+      "blood":            "B-",
+      "dob":              "1974-06-20",
+      "address":          "Thodupuzha, Idukki",
+      "email":            "",
+      "emergencyContact": "Anna Jose — 9846099002",
+      "lastVisit":        "MINUS_1",
+      "history":          "Palpitations, Paroxysmal AF, Hypertension",
+      "allergies":        "None",
+      "insurance":        "None"
+    },
+    {
+      "id":               "P0008",
+      "name":             "Sini Raju",
+      "phone":            "9447099002",
+      "age":              27,
+      "gender":           "Female",
+      "blood":            "AB+",
+      "dob":              "1997-12-11",
+      "address":          "Mundakayam, Kottayam",
+      "email":            "sini.r@gmail.com",
+      "emergencyContact": "Raju Thomas — 9447099003",
+      "lastVisit":        "MINUS_1",
+      "history":          "Gastritis, Post-op ENT follow-up (Septoplasty 2025)",
+      "allergies":        "Metronidazole",
+      "insurance":        "ICICI Lombard — POL1122334"
+    },
+    {
+      "id":               "P0009",
+      "name":             "Biju Paul",
+      "phone":            "8086099003",
+      "age":              40,
+      "gender":           "Male",
+      "blood":            "A+",
+      "dob":              "1984-08-16",
+      "address":          "Pala, Kottayam",
+      "email":            "biju.p2@gmail.com",
+      "emergencyContact": "Beena Biju — 8086099004",
+      "lastVisit":        "MINUS_1",
+      "history":          "Knee Meniscus Tear (R), Post-op Arthroscopy",
+      "allergies":        "Codeine",
+      "insurance":        "Star Health — POL6677889"
+    },
+    {
+      "id":               "P0010",
+      "name":             "Annamma Kurien",
+      "phone":            "9961098901",
+      "age":              32,
+      "gender":           "Female",
+      "blood":            "O+",
+      "dob":              "1992-02-14",
+      "address":          "Kidangoor, Kottayam",
+      "email":            "",
+      "emergencyContact": "Kurien George — 9961098902",
+      "lastVisit":        "MINUS_3",
+      "history":          "Routine child vaccination (for 2yr son)",
+      "allergies":        "None",
+      "insurance":        "PM-JAY"
+    },
+    {
+      "id":               "P0011",
+      "name":             "Thomas Mathew",
+      "phone":            "9400091011",
+      "age":              68,
+      "gender":           "Male",
+      "blood":            "B+",
+      "dob":              "1956-05-30",
+      "address":          "Kottayam Town",
+      "email":            "",
+      "emergencyContact": "Susan Thomas — 9400091012",
+      "lastVisit":        "MINUS_3",
+      "history":          "Mild Cognitive Impairment, Parkinson's (Early Stage), HTN",
+      "allergies":        "None",
+      "insurance":        "United India — POL9900112"
+    }
+  ],
+
+  "bookings": [
+    {
+      "id": "B001", "token": 101,
+      "patientId": "P0001", "patient": "Ouseph Chacko",    "phone": "9846012345",
+      "doctorId":  "D001",  "doctor":  "Dr. Kurian Thomas", "dept": "Cardiology",
+      "date": "TODAY", "time": "09:00",
+      "priority": "Normal",    "status": "Completed",
+      "complaint": "Chest tightness follow-up, BP check",
+      "notes":     "BP 140/90 — adjusted medication. Review in 4 weeks."
+    },
+    {
+      "id": "B002", "token": 102,
+      "patientId": "P0002", "patient": "Lakshmi Menon",    "phone": "9447098765",
+      "doctorId":  "D004",  "doctor":  "Dr. Priya Rajan",  "dept": "General Medicine",
+      "date": "TODAY", "time": "09:30",
+      "priority": "Normal", "status": "Called",
+      "complaint": "Recurring cough, breathlessness on exertion",
+      "notes": ""
+    },
+    {
+      "id": "B003", "token": 103,
+      "patientId": "P0003", "patient": "Akhil Suresh",     "phone": "8086123456",
+      "doctorId":  "D002",  "doctor":  "Dr. Anjali Nair",  "dept": "Pediatrics",
+      "date": "TODAY", "time": "10:00",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "High fever 103°F, body ache, 2 days duration",
+      "notes": ""
+    },
+    {
+      "id": "B004", "token": 104,
+      "patientId": "P0004", "patient": "Marykutty George",    "phone": "9946000011",
+      "doctorId":  "D003",  "doctor":  "Dr. Mathew Varghese", "dept": "Orthopedics",
+      "date": "TODAY", "time": "10:30",
+      "priority": "Emergency", "status": "Pending",
+      "complaint": "Hip pain, unable to bear weight, fell from stairs",
+      "notes": ""
+    },
+    {
+      "id": "B005", "token": 105,
+      "patientId": "P0005", "patient": "Rajan Pillai",    "phone": "9400234567",
+      "doctorId":  "D005",  "doctor":  "Dr. Saji Abraham", "dept": "Neurology",
+      "date": "TODAY", "time": "11:00",
+      "priority": "Urgent", "status": "Pending",
+      "complaint": "Severe headache + blurred vision, sudden onset",
+      "notes": ""
+    },
+    {
+      "id": "B006", "token": 106,
+      "patientId": "P0006", "patient": "Smitha Thomas",  "phone": "9895678901",
+      "doctorId":  "D006",  "doctor":  "Dr. Deepa Menon", "dept": "ENT",
+      "date": "TODAY", "time": "11:30",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Ear discharge, progressive hearing loss (L)",
+      "notes": ""
+    },
+    {
+      "id": "B007", "token": 95,
+      "patientId": "P0007", "patient": "Jose Varkey",     "phone": "9846099001",
+      "doctorId":  "D001",  "doctor":  "Dr. Kurian Thomas", "dept": "Cardiology",
+      "date": "MINUS_1", "time": "09:30",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Palpitations, irregular heartbeat",
+      "notes": "ECG done — paroxysmal AF. Referred for Holter monitoring."
+    },
+    {
+      "id": "B008", "token": 96,
+      "patientId": "P0008", "patient": "Sini Raju",      "phone": "9447099002",
+      "doctorId":  "D004",  "doctor":  "Dr. Priya Rajan", "dept": "General Medicine",
+      "date": "MINUS_1", "time": "10:00",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Epigastric pain, nausea post meals",
+      "notes": "PPI prescribed. H. pylori test ordered."
+    },
+    {
+      "id": "B009", "token": 97,
+      "patientId": "P0009", "patient": "Biju Paul",          "phone": "8086099003",
+      "doctorId":  "D003",  "doctor":  "Dr. Mathew Varghese","dept": "Orthopedics",
+      "date": "MINUS_1", "time": "10:30",
+      "priority": "Urgent", "status": "Completed",
+      "complaint": "Post-arthroscopy knee swelling, fever",
+      "notes": "No infection signs. Ice & elevation advised."
+    },
+    {
+      "id": "B010", "token": 88,
+      "patientId": "P0010", "patient": "Annamma Kurien", "phone": "9961098901",
+      "doctorId":  "D002",  "doctor":  "Dr. Anjali Nair", "dept": "Pediatrics",
+      "date": "MINUS_3", "time": "09:00",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Child vaccination — Pentavalent 3rd dose",
+      "notes": "Vaccination administered. No adverse reaction."
+    },
+    {
+      "id": "B011", "token": 89,
+      "patientId": "P0011", "patient": "Thomas Mathew",  "phone": "9400091011",
+      "doctorId":  "D005",  "doctor":  "Dr. Saji Abraham","dept": "Neurology",
+      "date": "MINUS_3", "time": "11:00",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Memory issues, confusion in mornings",
+      "notes": "MoCA score 22. MRI Brain ordered. Caregiver counselling done."
+    },
+    {
+      "id": "B012", "token": 80,
+      "patientId": "P0001", "patient": "Ouseph Chacko",     "phone": "9846012345",
+      "doctorId":  "D001",  "doctor":  "Dr. Kurian Thomas",  "dept": "Cardiology",
+      "date": "MINUS_7", "time": "10:00",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Routine cardiac check — echo report review",
+      "notes": "Echo shows mild LVH. Medication optimised."
+    },
+    {
+      "id": "B013", "token": 81,
+      "patientId": "P0006", "patient": "Smitha Thomas",  "phone": "9895678901",
+      "doctorId":  "D007",  "doctor":  "Dr. Nisha George","dept": "Dermatology",
+      "date": "MINUS_7", "time": "11:30",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Skin rash on forearms, itching since 2 weeks",
+      "notes": "Contact dermatitis. Steroid cream + antihistamine."
+    },
+    {
+      "id": "B014", "token": 72,
+      "patientId": "P0002", "patient": "Lakshmi Menon",  "phone": "9447098765",
+      "doctorId":  "D006",  "doctor":  "Dr. Deepa Menon", "dept": "ENT",
+      "date": "MINUS_14", "time": "09:30",
+      "priority": "Normal", "status": "Completed",
+      "complaint": "Nasal block, post-nasal drip, snoring",
+      "notes": "DNS noted. Medical management started."
+    },
+    {
+      "id": "B015", "token": 73,
+      "patientId": "P0009", "patient": "Biju Paul",          "phone": "8086099003",
+      "doctorId":  "D003",  "doctor":  "Dr. Mathew Varghese","dept": "Orthopedics",
+      "date": "MINUS_14", "time": "10:00",
+      "priority": "Urgent", "status": "Completed",
+      "complaint": "Knee locking, unable to extend (R knee)",
+      "notes": "MRI confirms medial meniscus tear. Arthroscopy planned."
+    },
+    {
+      "id": "B016", "token": null,
+      "patientId": "P0001", "patient": "Ouseph Chacko",     "phone": "9846012345",
+      "doctorId":  "D001",  "doctor":  "Dr. Kurian Thomas",  "dept": "Cardiology",
+      "date": "PLUS_2", "time": "10:00",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Monthly cardiac review + lipid profile results",
+      "notes": ""
+    },
+    {
+      "id": "B017", "token": null,
+      "patientId": "P0008", "patient": "Sini Raju",      "phone": "9447099002",
+      "doctorId":  "D006",  "doctor":  "Dr. Deepa Menon", "dept": "ENT",
+      "date": "PLUS_2", "time": "09:30",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Post-septoplasty follow-up",
+      "notes": ""
+    },
+    {
+      "id": "B018", "token": null,
+      "patientId": "P0005", "patient": "Rajan Pillai",       "phone": "9400234567",
+      "doctorId":  "D003",  "doctor":  "Dr. Mathew Varghese","dept": "Orthopedics",
+      "date": "PLUS_2", "time": "11:30",
+      "priority": "Urgent", "status": "Pending",
+      "complaint": "Post physiotherapy review — L4-L5",
+      "notes": ""
+    },
+    {
+      "id": "B019", "token": null,
+      "patientId": "P0011", "patient": "Thomas Mathew",  "phone": "9400091011",
+      "doctorId":  "D005",  "doctor":  "Dr. Saji Abraham","dept": "Neurology",
+      "date": "PLUS_5", "time": "10:00",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "MRI Brain results review",
+      "notes": ""
+    },
+    {
+      "id": "B020", "token": null,
+      "patientId": "P0010", "patient": "Annamma Kurien", "phone": "9961098901",
+      "doctorId":  "D002",  "doctor":  "Dr. Anjali Nair", "dept": "Pediatrics",
+      "date": "PLUS_5", "time": "09:00",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Child 6-month growth assessment",
+      "notes": ""
+    },
+    {
+      "id": "B021", "token": null,
+      "patientId": "P0005", "patient": "Rajan Pillai",    "phone": "9400234567",
+      "doctorId":  "D005",  "doctor":  "Dr. Saji Abraham", "dept": "Neurology",
+      "date": "PLUS_7", "time": "10:00",
+      "priority": "Urgent", "status": "Pending",
+      "complaint": "Follow-up: MRI spine + nerve conduction study results",
+      "notes": ""
+    },
+    {
+      "id": "B022", "token": null,
+      "patientId": "P0006", "patient": "Smitha Thomas",  "phone": "9895678901",
+      "doctorId":  "D007",  "doctor":  "Dr. Nisha George","dept": "Dermatology",
+      "date": "PLUS_7", "time": "11:00",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Pigmentation treatment follow-up",
+      "notes": ""
+    },
+    {
+      "id": "B023", "token": null,
+      "patientId": "P0007", "patient": "Jose Varkey",     "phone": "9846099001",
+      "doctorId":  "D001",  "doctor":  "Dr. Kurian Thomas","dept": "Cardiology",
+      "date": "PLUS_10", "time": "09:30",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Holter monitor report review — AF management",
+      "notes": ""
+    },
+    {
+      "id": "B024", "token": null,
+      "patientId": "P0004", "patient": "Marykutty George",    "phone": "9946000011",
+      "doctorId":  "D003",  "doctor":  "Dr. Mathew Varghese", "dept": "Orthopedics",
+      "date": "PLUS_10", "time": "10:30",
+      "priority": "Normal", "status": "Pending",
+      "complaint": "Post hip replacement physio — progress review",
+      "notes": ""
+    }
+  ],
+
+  "notices": [
+    {
+      "id":   "N001",
+      "type": "info",
+      "date": "TODAY",
+      "text": "OPD registration closes at 1:00 PM today."
+    },
+    {
+      "id":   "N002",
+      "type": "warning",
+      "date": "TODAY",
+      "text": "Power maintenance scheduled 3–4 PM. Generator will be active."
+    },
+    {
+      "id":   "N003",
+      "type": "success",
+      "date": "MINUS_1",
+      "text": "New CT scan wing inaugurated successfully. Now operational 24×7."
+    },
+    {
+      "id":   "N004",
+      "type": "info",
+      "date": "PLUS_2",
+      "text": "Dr. Priya Rajan resumes duty. OPD slots now open for booking."
+    }
+  ],
+
+  "stats": {
+    "totalPatientsServed": 48210,
+    "successfulSurgeries": 12430,
+    "averageWaitMinutes":  18,
+    "bedOccupancyPercent": 74,
+    "satisfactionScore":   4.7
+  }
+}
